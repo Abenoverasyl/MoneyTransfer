@@ -1,4 +1,5 @@
 package com.transfer.app.controller;
+import com.transfer.app.model.RatesModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,32 +15,17 @@ import java.util.Map;
 public class MoneyRatesController {
 
     @GetMapping("/rates")
-    public Map<String, Double> getRates() throws Exception {
-        String url = "http://data.fixer.io/api/latest?access_key=61060a053f4283ca9f97d87df091dd0a&format=1&symbols=USD,KZT,EUR";
-
-        RestTemplate restTemplate = new RestTemplate();
-        String ratesInfoStr = restTemplate.getForObject(url, String.class);
-
-        Map ratesInfo = getRates(ratesInfoStr);
-
+    public RatesModel getRates() throws Exception {
+        RatesModel ratesInfo = new RatesModel();
+        try {
+            String url = "http://data.fixer.io/api/latest?access_key=61060a053f4283ca9f97d87df091dd0a&format=1&symbols=USD,KZT,EUR";
+            RestTemplate restTemplate = new RestTemplate();
+            ratesInfo = restTemplate.getForObject(url, RatesModel.class);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return ratesInfo;
-    }
-
-    public Map<String, Double> getRates(String ratesInfoStr) throws Exception {
-
-        JSONObject ratesJSONObject = new JSONObject(ratesInfoStr);
-        JSONObject ratesJSON = ratesJSONObject.getJSONObject("rates");
-
-        Map<String, Double> rates = new HashMap<>();
-
-        ratesJSON.keySet().forEach(currencyObj ->
-        {
-            String currency = currencyObj.toString();
-            double rate = Double.parseDouble(ratesJSON.get(currency).toString());
-            rates.put(currency, rate);
-        });
-
-        return rates;
     }
 }
 

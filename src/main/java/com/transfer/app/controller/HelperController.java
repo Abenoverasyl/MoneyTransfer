@@ -1,6 +1,7 @@
 package com.transfer.app.controller;
 
 import com.transfer.app.model.ConverterRequestModel;
+import com.transfer.app.model.RatesModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,9 @@ public class HelperController {
     public double convertMoney(ConverterRequestModel converterRequest) {
         double result = 0;
         try {
-            Map<String, Double> rates = moneyRatesController.getRates();
-            double fromCurrency = rates.get(converterRequest.getFormCurrency());
-            double toCurrency = rates.get(converterRequest.getToCurrency());
+            RatesModel rates = moneyRatesController.getRates();
+            double fromCurrency = rates.getRates().get(converterRequest.getFormCurrency());
+            double toCurrency = rates.getRates().get(converterRequest.getToCurrency());
             result = converterRequest.getMoney() / fromCurrency * toCurrency;
         } catch (Exception e) {
             e.printStackTrace();
