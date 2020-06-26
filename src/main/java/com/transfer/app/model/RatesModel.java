@@ -5,14 +5,14 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Rates {
+public class RatesModel {
     private Double success;
     private long timestamp;
     private String base;
     private String date;
     private Map<String, Double> rates;
 
-    public Rates(Double success, long timestamp, String base, String date, Map<String, Double> rates) {
+    public RatesModel(Double success, long timestamp, String base, String date, Map<String, Double> rates) {
         this.success = success;
         this.timestamp = timestamp;
         this.base = base;

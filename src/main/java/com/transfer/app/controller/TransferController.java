@@ -1,7 +1,8 @@
 package com.transfer.app.controller;
 
-import com.transfer.app.model.TransferMoneyRequest;
-import com.transfer.app.model.User;
+import com.transfer.app.model.ConverterRequestModel;
+import com.transfer.app.model.TransferMoneyRequestModel;
+import com.transfer.app.model.UserModel;
 import com.transfer.app.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,59 +19,65 @@ public class TransferController {
     private UserJpaRepository userJpaRepository;
     @Autowired
     private UsersController usersController;
+    @Autowired
+    private HelperController helperController;
 
     @PostMapping(value = "/transfer")
-    public String transferMoney(TransferMoneyRequest transferMoneyRequest) {
-        User fromUser = usersController.findByAccount(transferMoneyRequest.getFromAccount());
-        User toUser = usersController.findByAccount(transferMoneyRequest.getToAccount());
+    public String transferMoney(TransferMoneyRequestModel transferMoneyRequestModel) {
+        UserModel fromUser = usersController.findByAccount(transferMoneyRequestModel.getFromAccount());
+        UserModel toUser = usersController.findByAccount(transferMoneyRequestModel.getToAccount());
 
-        String checkTransferDataResult = checkDataTransfer(transferMoneyRequest, fromUser, toUser);
+        String checkTransferDataResult = checkDataTransfer(transferMoneyRequestModel, fromUser, toUser);
 
         if (checkTransferDataResult != "OK") {
             return checkTransferDataResult;
         }
 
-        String makeTransferResult = makeTransfer(transferMoneyRequest, fromUser, toUser);
+        String makeTransferResult = makeTransfer(transferMoneyRequestModel, fromUser, toUser);
 
         return makeTransferResult;
     }
 
-    public String makeTransfer(TransferMoneyRequest transferMoneyRequest, User fromUser, User toUser) {
-        Long fromMoney = fromUser.getMoney() - transferMoneyRequest.getMoney();
-        Long toMoney = toUser.getMoney() + transferMoneyRequest.getMoney();
+    public String makeTransfer(TransferMoneyRequestModel transferMoneyRequestModel, UserModel fromUser, UserModel toUser) {
+        double fromMoney = fromUser.getMoney() - transferMoneyRequestModel.getMoney();
 
-        if (updateUser(transferMoneyRequest.getFromAccount(), fromMoney) != "OK") {
+        double convertedToMoney = helperController.convertMoney(new ConverterRequestModel(transferMoneyRequestModel.getMoney(),
+                                                                                        fromUser.getRate(),
+                                                                                        toUser.getRate()));
+        double toMoney = toUser.getMoney() + convertedToMoney;
+
+        if (updateUser(transferMoneyRequestModel.getFromAccount(), fromMoney) != "OK") {
             return "Can't transfer";
         }
-        if (updateUser(transferMoneyRequest.getToAccount(), toMoney) != "OK") {
+        if (updateUser(transferMoneyRequestModel.getToAccount(), toMoney) != "OK") {
             return "Can't transfer";
         }
 
         return "OK";
     }
 
-    public String checkDataTransfer(TransferMoneyRequest transferMoneyRequest, User fromUser, User toUser) {
-        if (transferMoneyRequest.getMoney() < 100) {
+    public String checkDataTransfer(TransferMoneyRequestModel transferMoneyRequestModel, UserModel fromUser, UserModel toUser) {
+        if (transferMoneyRequestModel.getMoney() < 100) {
             return "Деньги не может быть меньше 100 тг";
         }
 
         if (fromUser == null) {
-            return MessageFormat.format("Клиент со счетом \"{0}\" не найдено", transferMoneyRequest.getFromAccount());
+            return MessageFormat.format("Клиент со счетом \"{0}\" не найдено", transferMoneyRequestModel.getFromAccount());
         }
 
         if (toUser == null) {
-            return MessageFormat.format("Клиент со счетом \"{0}\" не найдено", transferMoneyRequest.getToAccount());
+            return MessageFormat.format("Клиент со счетом \"{0}\" не найдено", transferMoneyRequestModel.getToAccount());
         }
 
-        if (fromUser.getMoney() < transferMoneyRequest.getMoney()) {
+        if (fromUser.getMoney() < transferMoneyRequestModel.getMoney()) {
             return MessageFormat.format("У клиента \"{0}\" не хватает деньги на счету", fromUser.getName());
         }
         return "OK";
     }
 
     @PostMapping(value = "/update-money")
-    public String updateUser(String account, Long money) {
-        User user = userJpaRepository.findByAccount(account);
+    public String updateUser(String account, Double money) {
+        UserModel user = userJpaRepository.findByAccount(account);
         user.setMoney(money);
         userJpaRepository.save(user);
         return "OK";

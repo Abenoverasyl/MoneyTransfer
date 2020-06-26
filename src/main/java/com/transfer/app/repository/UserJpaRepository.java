@@ -1,11 +1,11 @@
 package com.transfer.app.repository;
 
-import com.transfer.app.model.User;
+import com.transfer.app.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserJpaRepository extends JpaRepository<User, Long> {
-    User findByName(String name);
-    User findByAccount(String name);
+public interface UserJpaRepository extends JpaRepository<UserModel, Long> {
+    UserModel findByName(String name);
+    UserModel findByAccount(String name);
 }

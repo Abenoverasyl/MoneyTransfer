@@ -1,16 +1,14 @@
 package com.transfer.app.model;
 
-public class TransferMoneyRequest {
+public class TransferMoneyRequestModel {
     private String toAccount;
     private String fromAccount;
-    private Long money;
-    private String rate;
+    private Double money;
 
-    public TransferMoneyRequest(String toAccount, String fromAccount, Long money, String rate) {
+    public TransferMoneyRequestModel(String toAccount, String fromAccount, Double money, String rate) {
         this.toAccount = toAccount;
         this.fromAccount = fromAccount;
         this.money = money;
-        this.rate = rate;
     }
 
     public String getToAccount() {
@@ -29,19 +27,11 @@ public class TransferMoneyRequest {
         this.fromAccount = fromAccount;
     }
 
-    public Long getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Long money) {
+    public void setMoney(Double money) {
         this.money = money;
-    }
-
-    public String getRate() {
-        return rate;
-    }
-
-    public void setRate(String rate) {
-        this.rate = rate;
     }
 }

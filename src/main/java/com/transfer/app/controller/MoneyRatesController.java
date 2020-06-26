@@ -32,9 +32,9 @@ public class MoneyRatesController {
 
         Map<String, Double> rates = new HashMap<>();
 
-        ratesJSON.keySet().forEach(keyStr ->
+        ratesJSON.keySet().forEach(currencyObj ->
         {
-            String currency = keyStr.toString();
+            String currency = currencyObj.toString();
             double rate = Double.parseDouble(ratesJSON.get(currency).toString());
             rates.put(currency, rate);
         });

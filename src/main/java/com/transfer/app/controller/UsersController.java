@@ -1,12 +1,10 @@
 package com.transfer.app.controller;
 
-import com.transfer.app.model.TransferMoneyRequest;
-import com.transfer.app.model.User;
+import com.transfer.app.model.UserModel;
 import com.transfer.app.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
@@ -18,17 +16,17 @@ public class UsersController {
 
 
     @GetMapping(value = "/all")
-    public List<User> findAllUsers() {
+    public List<UserModel> findAllUsers() {
         return userJpaRepository.findAll();
     }
 
     @GetMapping(value = "/{name}")
-    public User findByName(@PathVariable final String name) {
+    public UserModel findByName(@PathVariable final String name) {
         return userJpaRepository.findByName(name);
     }
 
     @GetMapping(value = "/account/{account}")
-    public User findByAccount(@PathVariable final String account) {
+    public UserModel findByAccount(@PathVariable final String account) {
         if (account == null || account.length() == 0) {
             return null;
         }
@@ -36,7 +34,7 @@ public class UsersController {
     }
 
     @PostMapping(value = "/insert-user")
-    public User load(@RequestBody final User user) {
+    public UserModel load(@RequestBody final UserModel user) {
         userJpaRepository.save(user);
         return userJpaRepository.findByName(user.getName());
     }
