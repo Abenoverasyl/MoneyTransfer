@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class HelperImpl implements Helper {
 
+    @Autowired
     private MoneyRatesController moneyRatesController;
 
     public double convertMoney(ConverterRequestModel converterRequest) {
