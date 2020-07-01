@@ -4,6 +4,7 @@ import com.transfer.app.model.ConverterRequestModel;
 import com.transfer.app.model.TransferMoneyRequestModel;
 import com.transfer.app.model.UserModel;
 import com.transfer.app.repository.UserJpaRepository;
+import com.transfer.app.service.HelperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,7 @@ public class TransferController {
     private UserJpaRepository userJpaRepository;
     @Autowired
     private UsersController usersController;
-    @Autowired
-    private HelperController helperController;
+    private HelperImpl helper;
 
     @PostMapping(value = "/transfer")
     public String transferMoney(TransferMoneyRequestModel transferMoneyRequestModel) {
@@ -29,27 +29,26 @@ public class TransferController {
 
         String checkTransferDataResult = checkDataTransfer(transferMoneyRequestModel, fromUser, toUser);
 
-        if (checkTransferDataResult != "OK") {
+        if (!checkTransferDataResult.equals("OK")) {
             return checkTransferDataResult;
         }
 
-        String makeTransferResult = makeTransfer(transferMoneyRequestModel, fromUser, toUser);
-
-        return makeTransferResult;
+        return makeTransfer(transferMoneyRequestModel, fromUser, toUser);
     }
 
     public String makeTransfer(TransferMoneyRequestModel transferMoneyRequestModel, UserModel fromUser, UserModel toUser) {
+        helper = new HelperImpl();
         double fromMoney = fromUser.getMoney() - transferMoneyRequestModel.getMoney();
 
-        double convertedToMoney = helperController.convertMoney(new ConverterRequestModel(transferMoneyRequestModel.getMoney(),
+        double convertedToMoney = helper.convertMoney(new ConverterRequestModel(transferMoneyRequestModel.getMoney(),
                                                                                         fromUser.getRate(),
                                                                                         toUser.getRate()));
         double toMoney = toUser.getMoney() + convertedToMoney;
 
-        if (updateUser(transferMoneyRequestModel.getFromAccount(), fromMoney) != "OK") {
+        if (!updateUser(transferMoneyRequestModel.getFromAccount(), fromMoney).equals("OK")) {
             return "Can't transfer";
         }
-        if (updateUser(transferMoneyRequestModel.getToAccount(), toMoney) != "OK") {
+        if (!updateUser(transferMoneyRequestModel.getToAccount(), toMoney).equals("OK")) {
             return "Can't transfer";
         }
 

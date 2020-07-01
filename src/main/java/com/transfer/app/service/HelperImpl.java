@@ -1,22 +1,15 @@
-package com.transfer.app.controller;
+package com.transfer.app.service;
 
+import com.transfer.app.controller.MoneyRatesController;
 import com.transfer.app.model.ConverterRequestModel;
 import com.transfer.app.model.RatesModel;
+import com.transfer.app.service.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+public class HelperImpl implements Helper {
 
-@RestController
-@RequestMapping("/helper")
-public class HelperController {
-
-    @Autowired
     private MoneyRatesController moneyRatesController;
 
-    @GetMapping("/convert")
     public double convertMoney(ConverterRequestModel converterRequest) {
         double result = 0;
         try {
