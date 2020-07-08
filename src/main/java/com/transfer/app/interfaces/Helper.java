@@ -1,7 +1,7 @@
-package com.transfer.app.service;
+package com.transfer.app.interfaces;
 
 import com.transfer.app.model.ConverterRequestModel;
 
-interface Helper {
+public interface Helper {
     double convertMoney(ConverterRequestModel converterRequest);
 }

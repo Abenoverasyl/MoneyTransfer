@@ -13,6 +13,17 @@ public class UserModel {
     private Double money;
     private String rate;
 
+    public UserModel() {
+    }
+
+    public UserModel(Long id, String name, String account, Double money, String rate) {
+        this.id = id;
+        this.name = name;
+        this.account = account;
+        this.money = money;
+        this.rate = rate;
+    }
+
     @Id
     @GeneratedValue
     public Long getId() {

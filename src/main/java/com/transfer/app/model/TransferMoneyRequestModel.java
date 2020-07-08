@@ -5,7 +5,7 @@ public class TransferMoneyRequestModel {
     private String fromAccount;
     private Double money;
 
-    public TransferMoneyRequestModel(String toAccount, String fromAccount, Double money, String rate) {
+    public TransferMoneyRequestModel(String toAccount, String fromAccount, Double money) {
         this.toAccount = toAccount;
         this.fromAccount = fromAccount;
         this.money = money;

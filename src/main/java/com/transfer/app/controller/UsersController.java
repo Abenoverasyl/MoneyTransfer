@@ -11,8 +11,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UsersController {
 
-    @Autowired
     private UserJpaRepository userJpaRepository;
+
+    public UsersController(UserJpaRepository userJpaRepository) {
+        this.userJpaRepository = userJpaRepository;
+    }
 
 
     @GetMapping(value = "/all")
