@@ -1,4 +1,4 @@
-package com.transfer.app.service;
+package com.transfer.app.helpers;
 
 import com.transfer.app.interfaces.Checker;
 import com.transfer.app.model.TransferMoneyRequestModel;

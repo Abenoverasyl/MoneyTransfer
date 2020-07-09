@@ -1,6 +1,6 @@
-package com.transfer.app.service;
+package com.transfer.app.helpers;
 
-import com.transfer.app.controller.MoneyRatesController;
+import com.transfer.app.integration.MoneyRatesController;
 import com.transfer.app.interfaces.Helper;
 import com.transfer.app.model.ConverterRequestModel;
 import com.transfer.app.model.RatesModel;

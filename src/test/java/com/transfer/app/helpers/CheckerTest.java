@@ -1,4 +1,4 @@
-package com.transfer.app.service;
+package com.transfer.app.helpers;
 
 import com.transfer.app.model.TransferMoneyRequestModel;
 import com.transfer.app.model.UserModel;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CheckerTest {
 
@@ -35,6 +34,6 @@ public class CheckerTest {
                 userFrom,
                 userTo
         );
-        assertEquals("Деньги не может быть меньше 100 тг", checkDataResult);
+        assertEquals(null, checkDataResult);
     }
 }

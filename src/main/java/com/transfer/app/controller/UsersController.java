@@ -3,8 +3,11 @@ package com.transfer.app.controller;
 import com.transfer.app.model.UserModel;
 import com.transfer.app.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -36,10 +39,30 @@ public class UsersController {
         return userJpaRepository.findByAccount(account);
     }
 
-    @PostMapping(value = "/insert-user")
-    public UserModel load(@RequestBody final UserModel user) {
-        userJpaRepository.save(user);
-        return userJpaRepository.findByName(user.getName());
+    @PostMapping(value = "/add")
+    public ResponseEntity<UserModel> add(@RequestBody final UserModel user) {
+
+        if (user.getId() != null && user.getId() != 0) {
+            return new ResponseEntity("Redundant param: id MUST be null", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        if (user.getAccount() == null || user.getAccount().trim().length() == 0) {
+            return new ResponseEntity("Missed param: account", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        if (user.getMoney() == null) {
+            return new ResponseEntity("Missed param: Money", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        if (user.getRate() == null || user.getRate().trim().length() == 0) {
+            return new ResponseEntity("Missed param: rate", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        if (user.getName() == null || user.getName().trim().length() == 0) {
+            return new ResponseEntity("Missed param: name", HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        return ResponseEntity.ok(userJpaRepository.save(user));
     }
 
 }
