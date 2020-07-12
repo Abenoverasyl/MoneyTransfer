@@ -1,11 +1,11 @@
 package com.transfer.app.model;
 
-public class TransferMoneyRequestModel {
+public class TransferMoneyRequest {
     private String toAccount;
     private String fromAccount;
     private Double money;
 
-    public TransferMoneyRequestModel(String toAccount, String fromAccount, Double money) {
+    public TransferMoneyRequest(String toAccount, String fromAccount, Double money) {
         this.toAccount = toAccount;
         this.fromAccount = fromAccount;
         this.money = money;

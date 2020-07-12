@@ -3,7 +3,7 @@ package com.transfer.app.model;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class RatesModel {
+public class RateModel {
     private Boolean success;
     private Long timestamp;
     private String base;

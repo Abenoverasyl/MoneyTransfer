@@ -1,16 +1,18 @@
-package com.transfer.app.helpers;
+package com.transfer.app.services;
 
-import com.transfer.app.model.TransferMoneyRequestModel;
+import com.transfer.app.model.TransferMoneyRequest;
 import com.transfer.app.model.UserModel;
+import com.transfer.app.services.impl.CheckerImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 
 public class CheckerTest {
 
-    TransferMoneyRequestModel transferMoneyRequest =
-            new TransferMoneyRequestModel("01",
+    TransferMoneyRequest transferMoneyRequest =
+            new TransferMoneyRequest("01",
                     "02",
                     90.0);
 
@@ -34,6 +36,6 @@ public class CheckerTest {
                 userFrom,
                 userTo
         );
-        assertEquals(null, checkDataResult);
+        assertNull(checkDataResult);
     }
 }
