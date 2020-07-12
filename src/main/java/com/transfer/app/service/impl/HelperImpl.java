@@ -1,19 +1,19 @@
-package com.transfer.app.services.impl;
+package com.transfer.app.service.impl;
 
-import com.transfer.app.integration.rate.impl.MoneyRateImpl;
+import com.transfer.app.integration.rate.impl.MoneyRateServiceImpl;
 import com.transfer.app.model.ConverterRequestModel;
 import com.transfer.app.model.RateModel;
-import com.transfer.app.services.Helper;
+import com.transfer.app.service.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HelperImpl implements Helper {
 
-    private MoneyRateImpl moneyRateImpl;
+    private MoneyRateServiceImpl moneyRateImpl;
 
     @Autowired
-    public HelperImpl(MoneyRateImpl moneyRateImpl) {
+    public HelperImpl(MoneyRateServiceImpl moneyRateImpl) {
         this.moneyRateImpl = moneyRateImpl;
     }
 

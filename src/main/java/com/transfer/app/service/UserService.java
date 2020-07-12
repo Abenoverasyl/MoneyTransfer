@@ -1,4 +1,4 @@
-package com.transfer.app.services;
+package com.transfer.app.service;
 
 import com.transfer.app.model.UserModel;
 

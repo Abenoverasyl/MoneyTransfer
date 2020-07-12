@@ -1,6 +1,6 @@
 package com.transfer.app.integration.rate.impl;
 import com.transfer.app.integration.IntegrationException;
-import com.transfer.app.integration.rate.MoneyRate;
+import com.transfer.app.integration.rate.MoneyRateService;
 import com.transfer.app.model.RateModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
-public class MoneyRateImpl implements MoneyRate {
+public class MoneyRateServiceImpl implements MoneyRateService {
 
     @Override
     public RateModel getRates() {

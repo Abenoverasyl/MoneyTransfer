@@ -1,8 +1,8 @@
-package com.transfer.app.services.impl;
+package com.transfer.app.service.impl;
 
 import com.transfer.app.model.UserModel;
 import com.transfer.app.repository.UserJpaRepository;
-import com.transfer.app.services.UserService;
+import com.transfer.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

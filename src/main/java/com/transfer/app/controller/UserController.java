@@ -1,7 +1,7 @@
 package com.transfer.app.controller;
 
 import com.transfer.app.model.UserModel;
-import com.transfer.app.services.impl.UserServiceImpl;
+import com.transfer.app.service.impl.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

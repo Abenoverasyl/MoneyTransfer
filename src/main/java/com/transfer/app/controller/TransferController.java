@@ -1,7 +1,7 @@
 package com.transfer.app.controller;
 
 import com.transfer.app.model.TransferMoneyRequest;
-import com.transfer.app.services.impl.TransferServiceImpl;
+import com.transfer.app.service.impl.TransferServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
