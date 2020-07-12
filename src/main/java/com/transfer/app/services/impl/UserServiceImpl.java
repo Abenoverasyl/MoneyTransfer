@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel getUserByAccount(String account) {
         UserModel user = null;
-        if (hasDataString(account)) {
+        if (!hasDataString(account)) {
             return null;
         }
         try {
