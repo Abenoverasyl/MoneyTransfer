@@ -1,6 +1,6 @@
-package com.transfer.app.services.impl;
+package com.transfer.app.service.impl;
 
-import com.transfer.app.services.Checker;
+import com.transfer.app.service.Checker;
 import com.transfer.app.model.TransferMoneyRequest;
 import com.transfer.app.model.UserModel;
 import org.springframework.stereotype.Service;
