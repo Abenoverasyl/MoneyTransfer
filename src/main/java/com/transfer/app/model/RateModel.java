@@ -10,6 +10,14 @@ public class RateModel {
     private LocalDate date;
     private Map<String, Double> rates;
 
+    public RateModel(Boolean success, Long timestamp, String base, LocalDate date, Map<String, Double> rates) {
+        this.success = success;
+        this.timestamp = timestamp;
+        this.base = base;
+        this.date = date;
+        this.rates = rates;
+    }
+
     public Boolean getSuccess() {
         return success;
     }
